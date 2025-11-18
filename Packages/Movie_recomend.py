@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import os
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import time # For simulating a loading state
@@ -58,8 +59,13 @@ def load_data_and_model():
     """Loads data, prepares features, and computes similarity matrix."""
     try:
         # Load Dataset
-        movie_df = pd.read_csv('IMDB-Movie-Data (1).csv')
+       file_path = os.path.join(
+    os.path.dirname(__file__), 
+    'IMDB-Movie-Data (1).csv'
+)
 
+# Load the Dataset using the reliable file_path
+movie_df = pd.read_csv(file_path)
         # Clean Data: Fill missing values in text columns
         movie_df['Genre'] = movie_df['Genre'].fillna('')
         movie_df['Description'] = movie_df['Description'].fillna('')
@@ -178,3 +184,4 @@ if st.button("✨ Get Recommendations", use_container_width=True):
 
 st.markdown("---")
 st.caption("Developed by **Data Scientist Ngama Jude Chinedu** ⚡.")
+
