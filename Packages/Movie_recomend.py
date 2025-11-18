@@ -58,14 +58,15 @@ st.markdown("""
 def load_data_and_model():
     """Loads data, prepares features, and computes similarity matrix."""
     try:
-        # Load Dataset
-       file_path = os.path.join(
-    os.path.dirname(__file__), 
-    'IMDB-Movie-Data (1).csv'
-)
-
-# Load the Dataset using the reliable file_path
-movie_df = pd.read_csv(file_path)
+        # Load Dataset: Fix the file path logic and keep it indented!
+        file_path = os.path.join(
+            os.path.dirname(__file__), 
+            'IMDB-Movie-Data (1).csv'
+        )
+        
+        # Load the Dataset using the reliable file_path (This line MUST be indented)
+        movie_df = pd.read_csv(file_path)
+        
         # Clean Data: Fill missing values in text columns
         movie_df['Genre'] = movie_df['Genre'].fillna('')
         movie_df['Description'] = movie_df['Description'].fillna('')
@@ -92,10 +93,11 @@ movie_df = pd.read_csv(file_path)
         
         return movie_df, cosine_sim_matrix, indices
     except FileNotFoundError:
-        st.error("🚨 Error: 'IMDB-Movie-Data (1).csv' not found. Please ensure the file is in the same directory.")
+        # NOTE: Changed the error message slightly to reflect the deployment environment
+        st.error("🚨 Error: Data file 'IMDB-Movie-Data (1).csv' not found. Ensure the file is committed to the same folder as the script.")
         st.stop()
     except Exception as e:
-        st.error(f"An error occurred during data processing: {e}")
+        st.error(f"An unexpected error occurred during data processing: {e}")
         st.stop()
 
 
@@ -184,4 +186,3 @@ if st.button("✨ Get Recommendations", use_container_width=True):
 
 st.markdown("---")
 st.caption("Developed by **Data Scientist Ngama Jude Chinedu** ⚡.")
-
